@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>Editor Group 2</title>
+        <meta charset="utf-8">
+        <!--lets browser know to scale page according to size of user's browser-->
+        <meta name="viewpoint" contents="width=device-width, initial-scale=1.0">
+         <!--link style.css to the html file -->
+         <link rel="stylesheet" type="text/css" href="style.css" />
+            
+                
+    </head>
+    <body>
+            <div id="toolbar">
+                 <div id="colors">Color: <input type="color" Value="#000000"
+                     Name="myColor" id="myColor"></div>
+                 <div id="range"> Size: 1<input type = "range" value ="5" min = "1" max ="100">100</div>
+            
+                     <button id="pencil">Pencil</button>
+                     <!--add image to folder src="images/brush.png"-->
+                     <button id="brush">Brush</button>
+                     <!--add image to folder src="images/brush.png"-->
+                     <button id="selector">Selector</button>
+                     <!-- add image to folder img src="images/erase.png"-->
+                     <button id="erase">Eraser</button>
+                     <!-- add image to folder img src="images/erase.png"-->
+                     <button id="save">Save</button>
+                     <button id="reset">Reset</button>
+                     <br>
+             </div>
+        
+                 <canvas id="canvas">Your current browser does not support canvas. <canvas>      <!--Make sure browser supports canvas -->
+            <script src ="script.js"></script>
+           
+    </body>
+    
+<html>
+                
