@@ -7,29 +7,47 @@
         <meta name="viewpoint" contents="width=device-width, initial-scale=1.0">
          <!--link style.css to the html file -->
          <link rel="stylesheet" type="text/css" href="style.css" />
-            
+          <link href="https://fonts.googleapis.com/css?family=Permanent+Marker&display=swap" rel="stylesheet">
                 
     </head>
     <body>
             <div id="toolbar">
-                 <div id="colors">Color: <input type="color" Value="#000000"
-                     Name="myColor" id="myColor"></div>
-                 <div id="range"> Size: 1<input type = "range" value ="5" min = "1" max ="100">100</div>
-            
-                     <button id="pencil">Pencil</button>
+		<h1 id="title">Editor 2.0</h1>
+                 <h2 id="tools">Toolkit:</h2>
+            	 <div title="Pencil">
+                            <button id="pencil">
+			   <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQBoiI89YpUx7yovET97TnGG4OOvA8R9bTD8Yc1DsQHB4NRrlXK&s" width="45" height="55">
+                           </button>
+                 </div>
                      <!--add image to folder src="images/brush.png"-->
-                     <button id="brush">Brush</button>
+                 <div title="Brush">
+                            <button id="brush">
+			   <img src="https://image.flaticon.com/icons/png/512/103/103456.png" width="42" height="45">
+                           </button>
+                 </div>                    
+ 
                      <!--add image to folder src="images/brush.png"-->
-                     <button id="selector">Selector</button>
+                      <div title="Selector">
+                            <button id="selector">
+			   <img src="http://clipartmag.com/image/dotted-line-drawing-22.gif" width="40" height="40">
+                           </button>
+                 </div>                    
+ 
                      <!-- add image to folder img src="images/erase.png"-->
-                     <button id="erase">Eraser</button>
-                     <!-- add image to folder img src="images/erase.png"-->
-                     <button id="save">Save</button>
-                     <button id="reset">Reset</button>
-                     <br>
-             </div>
+                     <div title="Eraser">
+                            <button id="erase">
+			   <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRtiCPvHsrmwNe7ZKozYSOT7zxddax7zu2PTQJFnxsOU-IctY6u&s" width="40" height="40">
+                           </button>
+                 </div>              
+                 <div id="colors"> <h2 id="color">Color:</h2> <input type="color" Value="#000000"
+                     Name="myColor" id="myColor"></div>
+                 <div id="range"> <h2 id="size">Size: &ensp;1<input type = "range" value ="5" min = "1" max ="100">100</h2></div>
+                     <button id="save">Save</button>
+                     <button id="reset">Reset</button>
+                     <br>
+             </div>
         
-                 <canvas id="canvas">Your current browser does not support canvas. <canvas>      <!--Make sure browser supports canvas -->
+                 <canvas id="canvas">Your current browser does not support canvas. <canvas>      <!--Make sure browser supports canvas -->
             <script src ="script.js"></script>
            
     </body>
