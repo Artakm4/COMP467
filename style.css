@@ -1,0 +1,104 @@
+*{
+    box-sizing: border-box;
+    
+    /*makes it so the user cant highlight text from the buttons and toolbox*/
+    user-select: none;
+}
+
+body{
+    margin:0;
+}
+
+canvas{
+    display: block;
+    
+    
+}
+#title {
+   
+    font-family: 'Permanent Marker', cursive;
+    font-size: 50px;
+    text-align: center;
+}
+#tools{
+
+    font-family: 'Permanent Marker', cursive;
+    font-size: 25px;
+    text-align: left;
+}
+#range{
+  
+}
+#toolbar{
+    width: 22%;
+    height: 100%;
+    padding: 17px;
+    position: absolute;
+    top: 0px;
+    background-color: #d3d3d3;
+    overflow: auto;
+}
+
+#myColors{
+      position: relative;
+    float left;
+    margin-left: 10px;
+    margin-right 10px;
+    width: 40px;
+    margin-bottom: 20px;
+      
+}
+
+#brush, #selector, #pencil{
+    display: block;
+    position: relative;
+    float: left;
+    height: 65px;
+    width: 60px;
+    background-color: white;
+    text-align: center;
+    cursor: pointer;
+    margin: 20px;
+    outline: none;
+}
+#erase{
+    display: block;
+    position: relative;
+    float: center;
+    height: 65px;
+    width: 60px;
+    background-color: white;
+    text-align: center;
+    cursor: pointer;
+    margin-left: 120px;
+    outline: none;
+    margin-top: 40px;
+    margin-bottom: 20px;
+}
+
+#color, #size{
+    font-family: 'Permanent Marker', cursive;
+    font-size: 20px;
+    text-align: left;
+    margin-bottom: 20px;
+    margin-top: 20px;
+}
+#save, #reset{
+    position: relative;
+    float: center;
+    height: 40px;
+    width: 67px;
+    background-color: white;
+    text-align: center;
+    cursor: pointer;
+    margin: 40px;
+    margin-top: 50px;
+}
+#save, #reset{
+font-family: 'Permanent Marker', cursive;
+    font-size: 20px;
+    text-align: center;
+    margin-bottom: 20px;
+    margin-top: 20px;
+}
+/*Comments*/
