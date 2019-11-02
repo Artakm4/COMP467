@@ -39,6 +39,21 @@ canvas{
     overflow: auto;
 }
 
+.toolbar-button {
+    display: block;
+    position: relative;
+    float: center;
+    height: 65px;
+    width: 60px;
+    background-color: white;
+    text-align: center;
+    cursor: pointer;
+    margin-left: 120px;
+    outline: none;
+    margin-top: 40px;
+    margin-bottom: 20px;
+}
+
 #myColors{
       position: relative;
     float left;
