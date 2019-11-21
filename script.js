@@ -139,7 +139,6 @@ function createTriangle(e) {
     //var height = circleSize * (Math.sqrt(3*positionX)/(2*positionY)); 
     var height = circleSize * (Math.sqrt(3)/2);
     
-
     context.translate(positionX, positionY);
     context.beginPath();
         
@@ -164,12 +163,6 @@ function createTriangle(e) {
     context.closePath();
 
     
-}
-
-function drawEqTriangle(size, cx, cy){
-    
-  
-
 }
 
 function brushClick(){
