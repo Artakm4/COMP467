@@ -18,7 +18,10 @@ var positionX, positionY;
 //Element Retrievers
 var brush = document.getElementById("brush"); //Retrieve Brush
 var eraser = document.getElementById("erase"); //Retrieve Eraser
+
 var circleSelectTool = document.getElementById("circle-tool");
+var triangleSelectTool = document.getElementById("triangle-tool");
+
 var reset = document.getElementById("reset"); // Retrieve Reset
 var savelink = document.getElementById("saveLink"); //Retrieve Save Image element
 
@@ -105,17 +108,45 @@ function brushUp(){
 let n = 50;
 
 function createCircle(e) {
-    let radius = mySizeCircle;
     var coordinates = getCoordinates(canvas,e);
     canvas.style.cursor = "pointer";
     positionX = coordinates.x;
     positionY = coordinates.y;
+
     context.beginPath(); //Begins a new path. Comment out to add to the current path. 
     //context.moveTo(positionX,positionY);
     //context.lineTo(positionX,positionY);
     //context.stroke();
     context.arc(positionX, positionY, mySizeCircle, 0, 2 * Math.PI);
+
     context.stroke();
+
+}
+
+function createTriangle(e) {
+
+    //context.translate(positionX, positionY);
+
+    var circleSize = 150;
+
+    var coordinates = getCoordinates(canvas,e);
+    canvas.style.cursor = "pointer";
+    positionX = coordinates.x;
+    positionY = coordinates.y;
+
+    var height = circleSize * (Math.sqrt(3)/2);
+
+    context.beginPath();
+        
+    context.moveTo(500, -height / 2);
+    context.lineTo( -mySizeCircle / 2, height / 2);
+    context.lineTo(mySizeCircle / 2, height / 2);
+    context.lineTo(500, -height / 2);
+    
+    context.stroke();
+    context.fill(); 
+    
+    //context.closePath();
 }
 
 function brushClick(){
@@ -169,10 +200,28 @@ function circleSelect() {
     if ( (circleSelectBool === true) && (circleSelectActivate === true) ) {
         canvas.addEventListener("click",createCircle,false); 
     }
+};
 
+function triangleSelect() {
     
-    //canvas.addEventListener("mousemove",null,false);
-    //canvas.addEventListener("mouseup",null,false);
+    canvas.removeEventListener("mousedown",brushDown);
+    canvas.removeEventListener("mousemove",brushMove);
+    canvas.removeEventListener("mouseup",brushUp);
+    
+    triangleSelectBool = true;
+    let triangleSelectActivate = true;
+
+    //context.strokeStyle = "black";
+    //Give border to button made sure to unselect all buttons in future
+    brush.style.border = "none";
+    eraser.style.border = "none";
+    circleSelectTool.style.border = "none";
+
+    triangleSelectTool.style.border = "2px solid red"
+
+    if ( (triangleSelectBool === true) && (triangleSelectActivate === true) ) {
+        canvas.addEventListener("click", createTriangle ,false); 
+    }
 };
 
 //End of Eraser functions
@@ -200,5 +249,9 @@ brush.addEventListener("click",brushClick); //Starts brush event on click
 erase.addEventListener("click",eraserClick); //Start eraser event on click
 reset.addEventListener("click",resetClick); //Start Reset Click Event
 saveLink.addEventListener("click",saveClick); //Start Save Click Event
-circleSelectTool.addEventListener("click", circleSelect);
+
+circleSelectTool.addEventListener("click", circleSelect); //Trigger event when clicking the circle select tool
+triangleSelectTool.addEventListener("click", triangleSelect); //Trigger event when clicking the circle select tool
+
+
  
