@@ -91,7 +91,7 @@ canvas{
     margin-bottom: 20px;
 }
 
-#color, #size{
+#color, #size, #size-circle {
     font-family: 'Permanent Marker', cursive;
     font-size: 20px;
     text-align: left;

@@ -37,14 +37,24 @@ function colorChange(){
 
 //Set initial Brush conditions
 var size = document.getElementById("myRange");
+var circleSize = document.getElementById("myRange-circle");
+
 var mySize = size.value;
+var mySizeCircle = circleSize.value;
+
 context.lineWidth = mySize;
+
 size.addEventListener("change",sizeChange);//Event listener for size change
+circleSize.addEventListener("change", circleSizeChange);
 
 //update size whenever selection is changed
 function sizeChange(){
     mySize = size.value;
     context.lineWidth = mySize;
+}
+
+function circleSizeChange(){
+    mySizeCircle = circleSize.value
 }
 
 //functions for brush to work
@@ -95,17 +105,17 @@ function brushUp(){
 let n = 50;
 
 function createCircle(e) {
+    let radius = mySizeCircle;
     var coordinates = getCoordinates(canvas,e);
     canvas.style.cursor = "pointer";
     positionX = coordinates.x;
     positionY = coordinates.y;
-    //context.beginPath();
+    context.beginPath(); //Begins a new path. Comment out to add to the current path. 
     //context.moveTo(positionX,positionY);
     //context.lineTo(positionX,positionY);
     //context.stroke();
-    context.arc(positionX, positionY, 50, 0, 2 * Math.PI);
+    context.arc(positionX, positionY, mySizeCircle, 0, 2 * Math.PI);
     context.stroke();
-    n += 2000;
 }
 
 function brushClick(){
@@ -143,22 +153,24 @@ function eraserClick(){
 
 function circleSelect() {
     
+    canvas.removeEventListener("mousedown",brushDown);
+    canvas.removeEventListener("mousemove",brushMove);
+    canvas.removeEventListener("mouseup",brushUp);
+    
     circleSelectBool = true;
     let circleSelectActivate = true;
-    context.strokeStyle = "black";
+    //context.strokeStyle = "black";
     //Give border to button made sure to unselect all buttons in future
     brush.style.border = "none";
     eraser.style.border = "none";
 
     circleSelectTool.style.border = "2px solid red";
 
-    canvas.removeEventListener("mousedown",brushDown);
-    canvas.removeEventListener("mousemove",brushMove);
-    canvas.removeEventListener("mouseup",brushUp);
-
     if ( (circleSelectBool === true) && (circleSelectActivate === true) ) {
         canvas.addEventListener("click",createCircle,false); 
     }
+
+    
     //canvas.addEventListener("mousemove",null,false);
     //canvas.addEventListener("mouseup",null,false);
 };
