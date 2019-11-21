@@ -123,30 +123,53 @@ function createCircle(e) {
 
 }
 
+var n1=0;
 function createTriangle(e) {
 
     //context.translate(positionX, positionY);
 
-    var circleSize = 150;
+    var circleSize = 50;
 
     var coordinates = getCoordinates(canvas,e);
     canvas.style.cursor = "pointer";
+    
     positionX = coordinates.x;
     positionY = coordinates.y;
 
+    //var height = circleSize * (Math.sqrt(3*positionX)/(2*positionY)); 
     var height = circleSize * (Math.sqrt(3)/2);
+    
 
+    context.translate(positionX, positionY);
     context.beginPath();
         
-    context.moveTo(500, -height / 2);
-    context.lineTo( -mySizeCircle / 2, height / 2);
-    context.lineTo(mySizeCircle / 2, height / 2);
-    context.lineTo(500, -height / 2);
+    //create triangle
+    /*context.moveTo(positionX, positionY);
+    context.lineTo(positionX, 3*positionY);
+    context.lineTo(3*positionX, 3*positionY);*/
+
+    n1+= 150;
+    //context.moveTo(0, -height / 2);
+    context.moveTo(0, -height / 2); //was -height - 2nd arg
+    context.lineTo( -circleSize / 2, height / 2);
+    context.lineTo(circleSize / 2, height / 2);
+    context.lineTo(0, -height / 2);
+
+    //context.closePath();
     
+    //fill triangle
     context.stroke();
     context.fill(); 
     
-    //context.closePath();
+    context.closePath();
+
+    
+}
+
+function drawEqTriangle(size, cx, cy){
+    
+  
+
 }
 
 function brushClick(){
