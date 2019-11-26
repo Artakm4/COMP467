@@ -132,14 +132,11 @@ function createTriangle(e) {
     positionY = coordinates.y;
     canvas.style.cursor = "pointer";
 
-    //context.translate(positionX, positionY);
-
     var circleSize = 50;
     
     //var height = circleSize * (Math.sqrt(3*positionX)/(2*positionY)); 
     var height = circleSize * (Math.sqrt(3)/2);
     
-    //context.translate(positionX, positionY);
     context.beginPath();
         
     //create triangle
@@ -147,13 +144,14 @@ function createTriangle(e) {
     context.lineTo(positionX, 3*positionY);
     context.lineTo(3*positionX, 3*positionY);*/
 
+    //context.translate(positionX, positionY);
     n1+= 150;
     //context.moveTo(0, -height / 2);
     context.moveTo(0, -height / 2); //was -height - 2nd arg
     context.lineTo( -circleSize / 2, height / 2);
     context.lineTo(circleSize / 2, height / 2);
     context.lineTo(0, -height / 2);
-    //context.closePath();
+    context.closePath();
 
     //fill triangle
     context.stroke();
