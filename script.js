@@ -192,6 +192,8 @@ function eraserClick(){
     //Give border to button made sure to unselect all buttons in future
     brush.style.border = "none";
     circleSelectTool.style.border = "none";
+    triangleSelectTool.style.border = "none";
+
     eraser.style.border = "2px solid red";
     
     canvas.addEventListener("mousedown",brushDown,false);
