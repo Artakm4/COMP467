@@ -6,7 +6,12 @@ canvas.height = window.innerHeight;
 var context = canvas.getContext("2d");
 
 var mouse = false;
+
 var circleSelectBool = false;
+var circleSelectTool = false;
+
+var triangleSelectBool = false;
+var triangleSelectActivate = false;
 
 /*for brush*/
 context.lineJoin = "round";
@@ -120,7 +125,7 @@ function createCircle(e) {
     context.arc(positionX, positionY, mySizeCircle, 0, 2 * Math.PI);
 
     context.stroke();
-
+    context.closePath();
 }
 
 var n1=0;
@@ -204,12 +209,15 @@ function circleSelect() {
     canvas.removeEventListener("mousemove",brushMove);
     canvas.removeEventListener("mouseup",brushUp);
     
+    context.strokeStyle = color.value;
+
     circleSelectBool = true;
     let circleSelectActivate = true;
     //context.strokeStyle = "black";
     //Give border to button made sure to unselect all buttons in future
     brush.style.border = "none";
     eraser.style.border = "none";
+    triangleSelectTool.style.border = "none"
 
     circleSelectTool.style.border = "2px solid red";
 
@@ -224,8 +232,10 @@ function triangleSelect() {
     canvas.removeEventListener("mousemove",brushMove);
     canvas.removeEventListener("mouseup",brushUp);
     
+    context.strokeStyle = color.value;
+
     triangleSelectBool = true;
-    let triangleSelectActivate = true;
+    triangleSelectActivate = true;
 
     //context.strokeStyle = "black";
     //Give border to button made sure to unselect all buttons in future
