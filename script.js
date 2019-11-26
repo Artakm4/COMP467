@@ -1,4 +1,5 @@
 /*declare canvas and its context, make it change when window is resized*/
+//TODO: Remove inner, black rectangle
 var canvas = document.getElementById("canvas");
 canvas.width = window.innerWidth;
 canvas.height = window.innerHeight;
@@ -13,6 +14,9 @@ var circleSelectTool = false;
 var triangleSelectBool = false;
 var triangleSelectActivate = false;
 
+var squareSelectBool = false;
+var squareSelectActivate = false;
+
 /*for brush*/
 context.lineJoin = "round";
 context.lineCap = "round";
@@ -26,6 +30,7 @@ var eraser = document.getElementById("erase"); //Retrieve Eraser
 
 var circleSelectTool = document.getElementById("circle-tool");
 var triangleSelectTool = document.getElementById("triangle-tool");
+var squareSelectTool = document.getElementById("square-tool");
 
 var reset = document.getElementById("reset"); // Retrieve Reset
 var savelink = document.getElementById("saveLink"); //Retrieve Save Image element
@@ -127,6 +132,22 @@ function createCircle(e) {
 }
 
 var n1=0;
+
+function createSquare(e) {
+    console.log("Calling createSquare()");
+    var coordinates = getCoordinates(canvas,e);
+    positionX = coordinates.x;
+    positionY = coordinates.y;
+    canvas.style.cursor = "pointer";
+
+    context.beginPath();
+    context.rect(positionX, positionY,  mySizeCircle, mySizeCircle);
+    //context.rect(400, 400, 150, 100);
+    context.stroke();
+    context.fill();
+    context.closePath();
+}
+
 function createTriangle(e) {
     var coordinates = getCoordinates(canvas,e);
     positionX = coordinates.x;
@@ -205,7 +226,8 @@ function eraserClick(){
 function circleSelect() {
     triangleSelectBool = false;
     canvas.removeEventListener("click",createTriangle); 
-    
+    canvas.removeEventListener("click", createSquare);
+
     canvas.removeEventListener("mousedown",brushDown);
     canvas.removeEventListener("mousemove",brushMove);
     canvas.removeEventListener("mouseup",brushUp);
@@ -228,8 +250,43 @@ function circleSelect() {
     }
 };
 
+function squareSelect() {
+    triangleSelectBool = false;
+    circleSelect = false;
+
+    canvas.removeEventListener("click",createTriangle); 
+    canvas.removeEventListener("click", createCircle);
+
+    canvas.removeEventListener("mousedown",brushDown);
+    canvas.removeEventListener("mousemove",brushMove);
+    canvas.removeEventListener("mouseup",brushUp);
+    
+    context.strokeStyle = color.value;
+
+    squareSelectBool = true;
+    squareSelectActivate = true;
+
+    //context.strokeStyle = "black";
+    //Give border to button made sure to unselect all buttons in future
+    brush.style.border = "none";
+    eraser.style.border = "none";
+    triangleSelectTool.style.border = "none"
+    circleSelectTool.style.border = "none";
+
+    squareSelectTool.style.border = "2px solid red";
+
+    if ( (squareSelectBool === true) && (squareSelectActivate === true) ) {
+        console.log("Create square");
+        canvas.addEventListener("click",createSquare,false); 
+    }
+};
+
+
 function triangleSelect() {
     
+    canvas.removeEventListener("click",createSquare); 
+    canvas.removeEventListener("click", createCircle);
+
     canvas.removeEventListener("mousedown",brushDown);
     canvas.removeEventListener("mousemove",brushMove);
     canvas.removeEventListener("mouseup",brushUp);
