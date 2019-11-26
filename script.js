@@ -114,14 +114,11 @@ let n = 50;
 
 function createCircle(e) {
     var coordinates = getCoordinates(canvas,e);
-    canvas.style.cursor = "pointer";
     positionX = coordinates.x;
     positionY = coordinates.y;
+    canvas.style.cursor = "pointer";
 
     context.beginPath(); //Begins a new path. Comment out to add to the current path. 
-    //context.moveTo(positionX,positionY);
-    //context.lineTo(positionX,positionY);
-    //context.stroke();
     context.arc(positionX, positionY, mySizeCircle, 0, 2 * Math.PI);
 
     context.stroke();
@@ -130,21 +127,19 @@ function createCircle(e) {
 
 var n1=0;
 function createTriangle(e) {
+    var coordinates = getCoordinates(canvas,e);
+    positionX = coordinates.x;
+    positionY = coordinates.y;
+    canvas.style.cursor = "pointer";
 
     //context.translate(positionX, positionY);
 
     var circleSize = 50;
-
-    var coordinates = getCoordinates(canvas,e);
-    canvas.style.cursor = "pointer";
     
-    positionX = coordinates.x;
-    positionY = coordinates.y;
-
     //var height = circleSize * (Math.sqrt(3*positionX)/(2*positionY)); 
     var height = circleSize * (Math.sqrt(3)/2);
     
-    context.translate(positionX, positionY);
+    //context.translate(positionX, positionY);
     context.beginPath();
         
     //create triangle
@@ -158,15 +153,11 @@ function createTriangle(e) {
     context.lineTo( -circleSize / 2, height / 2);
     context.lineTo(circleSize / 2, height / 2);
     context.lineTo(0, -height / 2);
-
     //context.closePath();
-    
+
     //fill triangle
     context.stroke();
     context.fill(); 
-    
-    context.closePath();
-
     
 }
 
