@@ -55,6 +55,7 @@ context.lineWidth = mySize;
 size.addEventListener("change",sizeChange);//Event listener for size change
 circleSize.addEventListener("change", circleSizeChange);
 
+
 //update size whenever selection is changed
 function sizeChange(){
     mySize = size.value;
@@ -279,6 +280,8 @@ saveLink.addEventListener("click",saveClick); //Start Save Click Event
 
 circleSelectTool.addEventListener("click", circleSelect); //Trigger event when clicking the circle select tool
 triangleSelectTool.addEventListener("click", triangleSelect); //Trigger event when clicking the circle select tool
+squareSelectTool.addEventListener("click", squareSelect); //Trigger event when clicking the circle select tool
+
 
 
  
