@@ -144,7 +144,7 @@ function createTriangle(e) {
     context.lineTo(positionX, 3*positionY);
     context.lineTo(3*positionX, 3*positionY);*/
 
-    //context.translate(positionX, positionY);
+    context.translate(positionX, positionY);
     n1+= 150;
     //context.moveTo(0, -height / 2);
     context.moveTo(0, -height / 2); //was -height - 2nd arg
@@ -157,6 +157,8 @@ function createTriangle(e) {
     context.stroke();
     context.fill(); 
     
+    context.translate(-positionX, -positionY); //reset position so that the triangle can be drawn at where the cursor is
+
 }
 
 function brushClick(){
