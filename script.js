@@ -191,7 +191,12 @@ function brushClick(){
 //Start of Eraser functions
 function eraserClick(){
     circleSelectBool = false;
+    triangleSelectBool = false;
+
     canvas.removeEventListener("click",createCircle); 
+    canvas.removeEventListener("click",createTriangle); 
+
+
     context.strokeStyle = "white";
     //Give border to button made sure to unselect all buttons in future
     brush.style.border = "none";
@@ -204,6 +209,8 @@ function eraserClick(){
 }
 
 function circleSelect() {
+    triangleSelectBool = false;
+    canvas.removeEventListener("click",createTriangle); 
     
     canvas.removeEventListener("mousedown",brushDown);
     canvas.removeEventListener("mousemove",brushMove);
@@ -212,6 +219,7 @@ function circleSelect() {
     context.strokeStyle = color.value;
 
     circleSelectBool = true;
+
     let circleSelectActivate = true;
     //context.strokeStyle = "black";
     //Give border to button made sure to unselect all buttons in future
@@ -231,7 +239,7 @@ function triangleSelect() {
     canvas.removeEventListener("mousedown",brushDown);
     canvas.removeEventListener("mousemove",brushMove);
     canvas.removeEventListener("mouseup",brushUp);
-    
+
     context.strokeStyle = color.value;
 
     triangleSelectBool = true;
@@ -243,7 +251,7 @@ function triangleSelect() {
     eraser.style.border = "none";
     circleSelectTool.style.border = "none";
 
-    triangleSelectTool.style.border = "2px solid red"
+    triangleSelectTool.style.border = "2px solid red";
 
     if ( (triangleSelectBool === true) && (triangleSelectActivate === true) ) {
         canvas.addEventListener("click", createTriangle ,false); 
