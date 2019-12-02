@@ -98,7 +98,7 @@ canvas{
     margin-bottom: 20px;
     margin-top: 20px;
 }
-#save, #reset{
+#save, #reset, #savePNG, #saveJPG, #saveBMP{
     position: relative;
     float: center;
     height: 40px;
@@ -109,7 +109,7 @@ canvas{
     margin: 40px;
     margin-top: 50px;
 }
-#save, #reset{
+#save, #reset, #savePNG, #saveJPG, #saveBMP{
 font-family: 'Permanent Marker', cursive;
     font-size: 20px;
     text-align: center;

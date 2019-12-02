@@ -33,7 +33,9 @@ var triangleSelectTool = document.getElementById("triangle-tool");
 var squareSelectTool = document.getElementById("square-tool");
 
 var reset = document.getElementById("reset"); // Retrieve Reset
-var savelink = document.getElementById("saveLink"); //Retrieve Save Image element
+var savePNG = document.getElementById("savePNG"); //Retrieve Save Image element PNG
+var saveJPG = document.getElementById("saveJPG"); //Retrieve Save Image element JPG
+var saveBMP = document.getElementById("saveBMP"); //Retrieve Save Image element BMP
 
 //Default Color Conditions, makes color update and eraser work
 var color = document.getElementById("myColor");
@@ -99,6 +101,8 @@ function brushMove(e){
 
 function brushDown(e){
     circleSelectBool = false;
+    triangleSelectBool = false;
+    squareSelectBool = false;
     mouse = true;
     var coordinates = getCoordinates(canvas,e);
     canvas.style.cursor = "pointer";
@@ -124,7 +128,7 @@ function createCircle(e) {
     positionY = coordinates.y;
     canvas.style.cursor = "pointer";
 
-    context.beginPath(); //Begins a new path. Comment out to add to the current path. 
+    context.beginPath(); //Begins a new path. Comment out to add to the current path.
     context.arc(positionX, positionY, mySizeCircle, 0, 2 * Math.PI);
 
     context.stroke();
@@ -134,6 +138,11 @@ function createCircle(e) {
 var n1=0;
 
 function createSquare(e) {
+    eraser.style.border = "none";
+    circleSelectTool.style.border = "none";
+    triangleSelectTool.style.border = "none";
+    brush.style.border = "none";
+    
     console.log("Calling createSquare()");
     var coordinates = getCoordinates(canvas,e);
     positionX = coordinates.x;
@@ -149,6 +158,12 @@ function createSquare(e) {
 }
 
 function createTriangle(e) {
+    eraser.style.border = "none";
+    circleSelectTool.style.border = "none";
+    squareSelectTool.style.border = "none";
+    triangleSelectTool.style.border = "none";
+    brush.style.border = "none";
+    
     var coordinates = getCoordinates(canvas,e);
     positionX = coordinates.x;
     positionY = coordinates.y;
@@ -156,7 +171,7 @@ function createTriangle(e) {
 
     var circleSize = 50;
     
-    //var height = circleSize * (Math.sqrt(3*positionX)/(2*positionY)); 
+    //var height = circleSize * (Math.sqrt(3*positionX)/(2*positionY));
     var height = circleSize * (Math.sqrt(3)/2);
     
     context.beginPath();
@@ -177,7 +192,7 @@ function createTriangle(e) {
 
     //fill triangle
     context.stroke();
-    context.fill(); 
+    context.fill();
     
     context.translate(-positionX, -positionY); //reset position so that the triangle can be drawn at where the cursor is
 
@@ -185,7 +200,10 @@ function createTriangle(e) {
 
 function brushClick(){
     circleSelectBool = false;
-    canvas.removeEventListener("click",createCircle); 
+    triangleSelectBool = false;
+    squareSelectBool = false;
+                   
+    canvas.removeEventListener("click",createCircle);
     //get color of brush
     var brushColor = document.getElementById("myColor");
     context.strokeStyle = brushColor.value;
@@ -205,9 +223,9 @@ function brushClick(){
 function eraserClick(){
     circleSelectBool = false;
     triangleSelectBool = false;
-
-    canvas.removeEventListener("click",createCircle); 
-    canvas.removeEventListener("click",createTriangle); 
+    squareSelectBool = false;
+    canvas.removeEventListener("click",createCircle);
+    canvas.removeEventListener("click",createTriangle);
 
 
     context.strokeStyle = "white";
@@ -224,8 +242,11 @@ function eraserClick(){
 }
 
 function circleSelect() {
-    triangleSelectBool = false;
-    canvas.removeEventListener("click",createTriangle); 
+                   eraser.style.border = "none";
+                   triangleSelectTool.style.border = "none";
+                   squareSelectTool.style.border = "none";
+                   brush.style.border = "none";
+    canvas.removeEventListener("click",createTriangle);
     canvas.removeEventListener("click", createSquare);
 
     canvas.removeEventListener("mousedown",brushDown);
@@ -246,7 +267,7 @@ function circleSelect() {
     circleSelectTool.style.border = "2px solid red";
 
     if ( (circleSelectBool === true) && (circleSelectActivate === true) ) {
-        canvas.addEventListener("click",createCircle,false); 
+        canvas.addEventListener("click",createCircle,false);
     }
 };
 
@@ -254,7 +275,7 @@ function squareSelect() {
     triangleSelectBool = false;
     circleSelect = false;
 
-    canvas.removeEventListener("click",createTriangle); 
+    canvas.removeEventListener("click",createTriangle);
     canvas.removeEventListener("click", createCircle);
 
     canvas.removeEventListener("mousedown",brushDown);
@@ -277,14 +298,14 @@ function squareSelect() {
 
     if ( (squareSelectBool === true) && (squareSelectActivate === true) ) {
         console.log("Create square");
-        canvas.addEventListener("click",createSquare,false); 
+        canvas.addEventListener("click",createSquare,false);
     }
 };
 
 
 function triangleSelect() {
     
-    canvas.removeEventListener("click",createSquare); 
+    canvas.removeEventListener("click",createSquare);
     canvas.removeEventListener("click", createCircle);
 
     canvas.removeEventListener("mousedown",brushDown);
@@ -301,11 +322,12 @@ function triangleSelect() {
     brush.style.border = "none";
     eraser.style.border = "none";
     circleSelectTool.style.border = "none";
+    squareSelectTool.style.border = "none";
 
     triangleSelectTool.style.border = "2px solid red";
 
     if ( (triangleSelectBool === true) && (triangleSelectActivate === true) ) {
-        canvas.addEventListener("click", createTriangle ,false); 
+        canvas.addEventListener("click", createTriangle ,false);
     }
 };
 
@@ -314,18 +336,42 @@ function triangleSelect() {
 // Reset Button Function
 function resetClick() {
     circleSelectTool = false;
-    canvas.removeEventListener("click",createCircle); 
+    triangleSelectTool = false;
+    squareSelectTool = false;
+    canvas.removeEventListener("click",createCircle);
     window.location.reload();
 }
 //End Reset Button Functions
 
 //Save Image Button Function
-function saveClick() {
+function savePNGEvent() {
     circleSelectTool = false;
-    canvas.removeEventListener("click",createCircle); 
-    var data = canvas.toDataURL();
-    saveLink.href = data;
-    saveLink.download = "myImage.png";
+    triangleSelectTool = false;
+    squareSelectTool = false;
+    canvas.removeEventListener("click",createCircle);
+    var datapng = canvas.toDataURL();
+    savePNG.href = datapng;
+    savePNG.download = "myImage.png";
+}
+                   
+function saveJPGEvent() {
+    circleSelectTool = false;
+    triangleSelectTool = false;
+    squareSelectTool = false;
+    canvas.removeEventListener("click",createCircle);
+    var datajpg = canvas.toDataURL();
+    saveJPG.href = datajpg;
+    saveJPG.download = "myImage.jpeg";
+}
+                   
+function saveBMPEvent() {
+    circleSelectTool = false;
+    triangleSelectTool = false;
+    squareSelectTool = false;
+    canvas.removeEventListener("click",createCircle);
+    var databmp = canvas.toDataURL();
+    saveBMP.href = databmp;
+    saveBMP.download = "myImage.bmp";
 }
 //End Save Image Button Functions
 
@@ -333,8 +379,11 @@ function saveClick() {
 brush.addEventListener("click",brushClick); //Starts brush event on click
 erase.addEventListener("click",eraserClick); //Start eraser event on click
 reset.addEventListener("click",resetClick); //Start Reset Click Event
-saveLink.addEventListener("click",saveClick); //Start Save Click Event
-
+                   
+savePNG.addEventListener("click",savePNGEvent); //Start PNG Save Click Event
+saveJPG.addEventListener("click",saveJPGEvent); //Start JPG Save Click Event
+saveBMP.addEventListener("click",saveBMPEvent); //Start BMP Save Click Event
+                   
 circleSelectTool.addEventListener("click", circleSelect); //Trigger event when clicking the circle select tool
 triangleSelectTool.addEventListener("click", triangleSelect); //Trigger event when clicking the circle select tool
 squareSelectTool.addEventListener("click", squareSelect); //Trigger event when clicking the circle select tool
