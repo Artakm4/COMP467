@@ -1,8 +1,5 @@
 /* declare canvas and its context, make it change when window is resized */
 
-//TODO: Fix triangle not reacting to size
-
-
 //TODO: Add option to fill shape or not
 
 //Less priority fixes:
@@ -80,7 +77,7 @@ function sizeChange(){
 }
 
 function circleSizeChange(){
-    mySizeCircle = circleSize.value
+    mySizeCircle = circleSize.value;
 }
 
 //functions for brush to work
@@ -181,7 +178,9 @@ function createTriangle(e) {
     positionY = coordinates.y;
     canvas.style.cursor = "pointer";
 
-    var circleSize = 50;
+    var circleSize = mySizeCircle;
+    
+    //50;
     
     //var height = circleSize * (Math.sqrt(3*positionX)/(2*positionY));
     var height = circleSize * (Math.sqrt(3)/2);
