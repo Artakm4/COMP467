@@ -1,5 +1,12 @@
-/*declare canvas and its context, make it change when window is resized*/
-//TODO: Remove inner, black rectangle
+/* declare canvas and its context, make it change when window is resized */
+
+//TODO: Add option to fill shape or not
+
+//Less priority fixes:
+//----------------------------------
+//TODO: Fix toolbar icon placements
+//TODO: Make toolbar
+
 var canvas = document.getElementById("canvas");
 canvas.width = window.innerWidth;
 canvas.height = window.innerHeight;
@@ -16,6 +23,18 @@ var triangleSelectActivate = false;
 
 var squareSelectBool = false;
 var squareSelectActivate = false;
+
+var fillToggle = document.getElementById("fill-toggle-value");
+var fillToggleValue = document.getElementById("fill-toggle-value").checked;
+
+function toggleChange() {
+    console.log("Calling toggleChange()")
+    fillToggleValue = document.getElementById("fill-toggle-value").checked;
+    context.fillStyle = myColor;
+}
+
+fillToggle.addEventListener("change", toggleChange);
+
 
 /*for brush*/
 context.lineJoin = "round";
@@ -47,6 +66,7 @@ color.addEventListener("change", colorChange);
 function colorChange(){
     myColor = color.value;
     context.strokeStyle = myColor;
+    context.fillStyle = myColor;
 }
 //End Color Selections
 
@@ -70,7 +90,7 @@ function sizeChange(){
 }
 
 function circleSizeChange(){
-    mySizeCircle = circleSize.value
+    mySizeCircle = circleSize.value;
 }
 
 //functions for brush to work
@@ -132,12 +152,19 @@ function createCircle(e) {
     context.arc(positionX, positionY, mySizeCircle, 0, 2 * Math.PI);
 
     context.stroke();
+    
+    if (fillToggleValue == true) {
+        console.log("Calling fill");
+        context.fill();
+    }
+
     context.closePath();
 }
 
 var n1=0;
 
 function createSquare(e) {
+    console.log("fillToggleValue:\t" + fillToggleValue);
     eraser.style.border = "none";
     circleSelectTool.style.border = "none";
     triangleSelectTool.style.border = "none";
@@ -149,12 +176,19 @@ function createSquare(e) {
     positionY = coordinates.y;
     canvas.style.cursor = "pointer";
 
+    
     context.beginPath();
     context.rect(positionX, positionY,  mySizeCircle, mySizeCircle);
     //context.rect(400, 400, 150, 100);
     context.stroke();
-    context.fill();
+    
+    if (fillToggleValue == true) {
+        console.log("Calling fill");
+        context.fill();
+    }
+    //(fillToggleValue == "on") ? context.fill() : null;
     context.closePath();
+    
 }
 
 function createTriangle(e) {
@@ -169,7 +203,9 @@ function createTriangle(e) {
     positionY = coordinates.y;
     canvas.style.cursor = "pointer";
 
-    var circleSize = 50;
+    var circleSize = mySizeCircle;
+    
+    //50;
     
     //var height = circleSize * (Math.sqrt(3*positionX)/(2*positionY));
     var height = circleSize * (Math.sqrt(3)/2);
@@ -192,10 +228,16 @@ function createTriangle(e) {
 
     //fill triangle
     context.stroke();
-    context.fill();
+
+    if (fillToggleValue == true) {
+        console.log("Calling fill");
+        context.fill();
+    }
+
+    //(fillToggleValue == "on") ? context.fill() : null;
+    //context.fill();
     
     context.translate(-positionX, -positionY); //reset position so that the triangle can be drawn at where the cursor is
-
 }
 
 function brushClick(){
