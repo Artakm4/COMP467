@@ -30,6 +30,7 @@ var fillToggleValue = document.getElementById("fill-toggle-value").checked;
 function toggleChange() {
     console.log("Calling toggleChange()")
     fillToggleValue = document.getElementById("fill-toggle-value").checked;
+    context.fillStyle = myColor;
 }
 
 fillToggle.addEventListener("change", toggleChange);
@@ -65,6 +66,7 @@ color.addEventListener("change", colorChange);
 function colorChange(){
     myColor = color.value;
     context.strokeStyle = myColor;
+    context.fillStyle = myColor;
 }
 //End Color Selections
 
