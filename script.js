@@ -1,6 +1,7 @@
 /* declare canvas and its context, make it change when window is resized */
 
-//TODO: Remove inner triangle 
+//TODO: Fix triangle not reacting to size
+
 
 //TODO: Add option to fill shape or not
 
@@ -203,7 +204,7 @@ function createTriangle(e) {
 
     //fill triangle
     context.stroke();
-    context.fill();
+    //context.fill();
     
     context.translate(-positionX, -positionY); //reset position so that the triangle can be drawn at where the cursor is
 
