@@ -1,5 +1,14 @@
-/*declare canvas and its context, make it change when window is resized*/
-//TODO: Remove inner, black rectangle
+/* declare canvas and its context, make it change when window is resized */
+
+//TODO: Remove inner triangle 
+
+//TODO: Add option to fill shape or not
+
+//Less priority fixes:
+//----------------------------------
+//TODO: Fix toolbar icon placements
+//TODO: Make toolbar
+
 var canvas = document.getElementById("canvas");
 canvas.width = window.innerWidth;
 canvas.height = window.innerHeight;
@@ -149,12 +158,14 @@ function createSquare(e) {
     positionY = coordinates.y;
     canvas.style.cursor = "pointer";
 
+    
     context.beginPath();
     context.rect(positionX, positionY,  mySizeCircle, mySizeCircle);
     //context.rect(400, 400, 150, 100);
     context.stroke();
-    context.fill();
+    //context.fill();
     context.closePath();
+    
 }
 
 function createTriangle(e) {
