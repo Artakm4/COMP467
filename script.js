@@ -24,6 +24,17 @@ var triangleSelectActivate = false;
 var squareSelectBool = false;
 var squareSelectActivate = false;
 
+var fillToggle = document.getElementById("fill-toggle-value");
+var fillToggleValue = document.getElementById("fill-toggle-value").checked;
+
+function toggleChange() {
+    console.log("Calling toggleChange()")
+    fillToggleValue = document.getElementById("fill-toggle-value").checked;
+}
+
+fillToggle.addEventListener("change", toggleChange);
+
+
 /*for brush*/
 context.lineJoin = "round";
 context.lineCap = "round";
@@ -139,12 +150,19 @@ function createCircle(e) {
     context.arc(positionX, positionY, mySizeCircle, 0, 2 * Math.PI);
 
     context.stroke();
+    
+    if (fillToggleValue == true) {
+        console.log("Calling fill");
+        context.fill();
+    }
+
     context.closePath();
 }
 
 var n1=0;
 
 function createSquare(e) {
+    console.log("fillToggleValue:\t" + fillToggleValue);
     eraser.style.border = "none";
     circleSelectTool.style.border = "none";
     triangleSelectTool.style.border = "none";
@@ -161,7 +179,12 @@ function createSquare(e) {
     context.rect(positionX, positionY,  mySizeCircle, mySizeCircle);
     //context.rect(400, 400, 150, 100);
     context.stroke();
-    //context.fill();
+    
+    if (fillToggleValue == true) {
+        console.log("Calling fill");
+        context.fill();
+    }
+    //(fillToggleValue == "on") ? context.fill() : null;
     context.closePath();
     
 }
@@ -203,10 +226,16 @@ function createTriangle(e) {
 
     //fill triangle
     context.stroke();
+
+    if (fillToggleValue == true) {
+        console.log("Calling fill");
+        context.fill();
+    }
+
+    //(fillToggleValue == "on") ? context.fill() : null;
     //context.fill();
     
     context.translate(-positionX, -positionY); //reset position so that the triangle can be drawn at where the cursor is
-
 }
 
 function brushClick(){
