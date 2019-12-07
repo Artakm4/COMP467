@@ -8,6 +8,7 @@
 //TODO: Make toolbar
 
 
+
 var History = function (hist_canvas, hist_context,hist_maxStates) {
     var canvas = hist_canvas;
     var context = hist_context;
