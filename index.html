@@ -9,99 +9,98 @@
     <!--link style.css to the html file -->
     <link rel="stylesheet" type="text/css" href="style.css" />
     <link href="https://fonts.googleapis.com/css?family=Permanent+Marker&display=swap" rel="stylesheet">
-
+     
 </head>
 
 <body>
-    <div id="toolbar">
+
+  <div id="toggle-switch-container">
+            <h2 id="size">Fill Toggle:</h2>
+            <label class="switch">
+                <input type="checkbox" checked id="fill-toggle-value">
+                <span class="slider round"></span>
+            </label>
+        </div>
+         <div id="range">
+            <h2 id="size">Brush Size: &ensp;1
+                <input type="range" id="myRange" value ="10" min = "1" max ="100">
+                100
+            </h2>
+        </div>
+         <div id="range-circle">
+            <h2 id="size-circle">Shape Size: &ensp;1
+                <input type = "range" id="myRange-circle" value ="10" min = "1" max ="300">
+                300
+            </h2>
+        </div>   
+ <div class="navbar">
+
+        
+    <div class="dropdown">
+    <button class="dropbtn">Save As
+      <i class="fa fa-caret-down"></i>
+    </button>
+    <div class="dropdown-content">
+      <a href="" id = "savePNG">PNG</a>
+      <a href="" id = "saveJPG">JPEG</a>
+      <a href="" id = "saveBMP">BMP</a>
+    </div>
+      <a href="" id="reset">Reset</a>
+  </div>
+</div>
+</div>
+
+<div id="toolbar">
         <h1 id="title">Editor 2.0</h1>
         <h2 id="tools">Toolkit:</h2>
-        <div title="Pencil">
-            <button id="pencil">
-                <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQBoiI89YpUx7yovET97TnGG4OOvA8R9bTD8Yc1DsQHB4NRrlXK&s" width="45" height="55">
-            </button>
-        </div>
+        
         <!--add image to folder src="images/brush.png"-->
         <div title="Brush">
             <button id="brush">
-                <img src="https://image.flaticon.com/icons/png/512/103/103456.png" width="42" height="45">
+                <img src="https://image.flaticon.com/icons/png/512/103/103456.png" width="40" height="42">
             </button>
         </div>
 
         <!--add image to folder src="images/brush.png"-->
         <div title="Selector">
             <button id="selector">
-                <img src="https://cdn2.iconfinder.com/data/icons/social-messaging-productivity-1/128/photo-crop-512.png" width="40" height="40">
+                <img src="https://cdn2.iconfinder.com/data/icons/social-messaging-productivity-1/128/photo-crop-512.png" width="35" height="40">
             </button>
         </div>
 
         <!-- add image to folder img src="images/erase.png"-->
         <div title="Eraser">
             <button id="erase">
-                <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRtiCPvHsrmwNe7ZKozYSOT7zxddax7zu2PTQJFnxsOU-IctY6u&s" width="40" height="40">
+                <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRtiCPvHsrmwNe7ZKozYSOT7zxddax7zu2PTQJFnxsOU-IctY6u&s" width="38" height="38">
             </button>
         </div>
         <div title="Circle">
             <button class="toolbar-button" id="circle-tool">
-                <img src="http://clipartmag.com/images/circles-clipart-11.jpg" alt="Circle Tool" height="40" width="40"/>
+                <img src="http://clipartmag.com/images/circles-clipart-11.jpg" alt="Circle Tool" height="36" width="32"/>
             </button>
         </div>
         <div title="Triangle">
             <button class="toolbar-button" id="triangle-tool">
-                <img src="https://static.thenounproject.com/png/660307-200.png" alt="Triangle Tool" height="40" width="40"/>
+                <img src="https://static.thenounproject.com/png/660307-200.png" alt="Triangle Tool" height="36" width="34"/>
             </button>
         </div>
         <div title="Square">
             <button class="toolbar-button" id="square-tool">
-                <img src="http://clipartmag.com/image/dotted-line-drawing-22.gif" alt="Square Tool" height="40" width="40"/>
+                <img src="http://clipartmag.com/image/dotted-line-drawing-22.gif" alt="Square Tool" height="36" width="32"/>
             </button>
         </div>
-        <div id="colors">
+          <div id="colors">
             <h2 id="color">Color:</h2>
             <input type="color" Value="#000000" Name="myColor" id="myColor">
         </div>
-        <div id="toggle-switch-container">
-            <h2 id="color">Fill Toggle:</h2>
-            <label class="switch">
-                <input type="checkbox" checked id="fill-toggle-value">
-                <span class="slider round"></span>
-            </label>
-        </div>
-        <div id="range">
-            <h2 id="size">Brush Size: &ensp;1
-                <input type="range" id="myRange" value ="10" min = "1" max ="100">
-                100
-            </h2>
-        </div>
+        
+       
 
-        <div id="range-circle">
-            <h2 id="size-circle">Shape Size: &ensp;1
-                <input type = "range" id="myRange-circle" value ="10" min = "1" max ="300">
-                300
-            </h2>
-        </div>
- 
-        <a href="" id="saveLink">
-            <button id="save">Save As</button>
-        </a>
         
-        <div>
-            <a href = "" id = "savePNG">
-            <button id="savePNG">PNG</button>
-               </a>
-            
-            <a href = "" id = "saveJPG">
-            <button id="saveJPG">JPG</button>
-               </a>
-               
-               <a href = "" id = "saveBMP">
-            <button id="saveBMP">BMP</button>
-            </a>
-        </div>
-        
-        <button id="reset">Reset</button>
-        <br>
-    </div>
+ </div>
+
+             
+         
     <canvas id="canvas">Your current browser does not support canvas.</canvas>
     <!--Make sure browser supports canvas. JS file -->
     <script src="script.js"></script>
