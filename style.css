@@ -17,26 +17,100 @@ canvas{
 #title {
    
     font-family: 'Permanent Marker', cursive;
-    font-size: 50px;
+    font-size: 45px;
     text-align: center;
 }
 #tools{
 
     font-family: 'Permanent Marker', cursive;
-    font-size: 25px;
+    font-size: 23px;
     text-align: left;
 }
 #range{
   
 }
+
+.navbar{
+  overflow: auto;
+  background-color: #333;
+  font-family: Arial;
+ }
+
+/* Links inside the topbar */
+.navbar a {
+  float: center;
+  font-size: 20px;
+  font-family: 'Permanent Marker', cursive;
+  color: red;
+  text-align: center;
+  padding: 14px 16px;
+  text-decoration: none;
+ }
+
+/* The dropdown container */
+.dropdown {
+  float: right;
+  overflow: hidden;
+}
+
+/* Dropdown button */
+.dropdown .dropbtn {
+  font-size: 20px;
+  border: none;
+  outline: none;
+  color: red;
+  padding: 14px 16px;
+  background-color: inherit;
+  font-family: 'Permanent Marker', cursive;
+  margin: 0; 
+}
+
+#toggle-ws
+.navbar a:hover, .dropdown:hover .dropbtn {
+  background-color: #d3d3d3;
+  color: red;
+}
+
+/* Dropdown content (hidden by default) */
+.dropdown-content {
+  display: none;
+  position: absolute;
+  background-color: #f9f9f9;
+  min-width: 160px;
+  box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
+  z-index: 1;
+}
+
+/* Links inside the dropdown */
+.dropdown-content a {
+  float: auto;
+  color: black;
+  padding: 12px 16px;
+  text-decoration: none;
+  display: block;
+  text-align: center;
+  font-family: 'Permanent Marker', cursive;
+}
+
+/* Add a grey background color to dropdown links on hover */
+.dropdown-content a:hover {
+  background-color: #ddd;
+}
+
+/* Show the dropdown menu on hover */
+.dropdown:hover .dropdown-content {
+  display: block;
+}
+
+
 #toolbar{
-    width: 22%;
+    width: 16%;
     height: 100%;
     padding: 17px;
     position: absolute;
     top: 0px;
-    background-color: #d3d3d3;
-    overflow: auto;
+    background-color: #969997;
+    overflow: hidden;
 }
 
 .toolbar-button {
@@ -53,77 +127,86 @@ canvas{
     margin-top: 40px;
     margin-bottom: 20px;
 }
-
 #myColors{
-      position: relative;
+    position: relative;
     float left;
-    margin-left: 10px;
+    margin-left: 20px;
     margin-right 10px;
-    width: 40px;
+    width: 60px;
+    length: 80px;
     margin-bottom: 20px;
       
 }
 
-#brush, #selector, #pencil{
+#brush, #circle-tool{
     display: block;
     position: relative;
     float: left;
-    height: 65px;
-    width: 60px;
+    height: 53px;
+    width: 50px;
     background-color: white;
     text-align: center;
     cursor: pointer;
-    margin: 20px;
+    margin-left: 30px;
+    margin-top: 12px;
     outline: none;
 }
-#erase{
+#circle-tool, #square-tool{
+ display: block;
+    position: relative;
+    float: left;
+    height: 53px;
+    width: 50px;
+    background-color: white;
+    text-align: center;
+    cursor: pointer;
+    margin-left: 30px;
+    margin-top: -55px;
+    outline: none;
+}
+
+#selector, #erase, #triangle-tool{
     display: block;
     position: relative;
     float: center;
-    height: 65px;
-    width: 60px;
+    height: 53px;
+    width: 50px;
     background-color: white;
     text-align: center;
     cursor: pointer;
-    margin-left: 120px;
+    margin-left: 130px;
     outline: none;
-    margin-top: 40px;
-    margin-bottom: 20px;
+    margin-top: 29px;
+    margin-bottom: 2px;
 }
 
-#color, #size, #size-circle {
+
+#color {
     font-family: 'Permanent Marker', cursive;
+    font-size: 25px;
+    text-align: left;
+    margin-bottom: 20px;
+    margin-top: 40px;
+}
+
+#size, #size-circle{
+font-family: 'Permanent Marker', cursive;
     font-size: 20px;
     text-align: left;
     margin-bottom: 20px;
-    margin-top: 20px;
+    margin-top: 15px;
 }
-#save, #reset, #savePNG, #saveJPG, #saveBMP{
-    position: relative;
-    float: center;
-    height: 40px;
-    width: 67px;
-    background-color: white;
-    text-align: center;
-    cursor: pointer;
-    margin: 40px;
-    margin-top: 50px;
-}
-#save, #reset, #savePNG, #saveJPG, #saveBMP{
-font-family: 'Permanent Marker', cursive;
-    font-size: 20px;
-    text-align: center;
-    margin-bottom: 20px;
-    margin-top: 20px;
-}
+
 /*Comments*/
 
 /* Slider CSS */
 .switch {
-    position: relative;
+  position: absolute;
     display: inline-block;
-    width: 60px;
-    height: 34px;
+    width: 30px;
+    height: 17px;
+    margin-left: 150px;
+    margin-top: -40px;
   }
   
   .switch input { 
@@ -147,10 +230,10 @@ font-family: 'Permanent Marker', cursive;
   .slider:before {
     position: absolute;
     content: "";
-    height: 26px;
-    width: 26px;
-    left: 4px;
-    bottom: 4px;
+    height: 13px;
+    width: 13px;
+    left: 2px;
+    bottom: 2px;
     background-color: white;
     -webkit-transition: .4s;
     transition: .4s;
@@ -170,3 +253,40 @@ font-family: 'Permanent Marker', cursive;
     transform: translateX(26px);
   }
   
+#toggle-switch-container{
+   position: absolute;
+    float left;
+    margin-left: 270px;
+    margin-right 0px;
+    width: 600px;
+    margin-bottom: 0px;
+    margin-top: -20 px;
+    font-size: 18px;
+  font-family: 'Permanent Marker', cursive;
+  color: white;
+}
+
+#range{
+position: absolute;
+    float left;
+    margin-left: 520px;
+    margin-right 0px;
+    width: 350px;
+    margin-bottom: 0px;
+    margin-top: 30 px;
+   font-size: 18px;
+  font-family: 'Permanent Marker', cursive;
+  color: white;
+}
+#range-circle{
+position: absolute;
+    float left;
+    margin-left: 900px;
+    margin-right 0px;
+    width: 400px;
+    margin-bottom: 0px;
+    margin-top: -20 px;
+  font-size: 18px;
+  font-family: 'Permanent Marker', cursive;
+  color: white;
+}
