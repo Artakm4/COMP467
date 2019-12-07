@@ -7,6 +7,58 @@
 //TODO: Fix toolbar icon placements
 //TODO: Make toolbar
 
+
+var History = function (hist_canvas, hist_context,hist_maxStates) {
+    var canvas = hist_canvas;
+    var context = hist_context;
+    var maxStates = hist_maxStates;
+    var currState = 0;
+    var stateStack = [];
+    return {
+        "initialize": function () {
+            currState = 0;
+            stateStack = [];
+            stateStack.push(canvas.toDataURL("image/png"));
+        },
+        "save": function () {
+            if (currState != stateStack.length - 1) {
+                stateStack.splice(currState + 1, stateStack.length - currState - 1);
+            }
+            stateStack.push(canvas.toDataURL("image/png"));
+            currState++;
+            if (stateStack.length > maxStates) {
+                stateStack.shift();
+                currState--;
+            }
+        },
+        "undo": function () {
+            if (currState > 0) {
+                currState--;
+                var tempImg = new Image();
+                tempImg.src = stateStack[currState];
+                tempImg.onload = function () {
+                    context.clearRect(0, 0, canvas.width, canvas.height);
+                    context.drawImage(this, 0, 0);
+                }
+            }
+        },
+        "redo": function () {
+            if (currState < stateStack.length - 1) {
+                currState++;
+                var tempImg = new Image();
+                tempImg.src = stateStack[currState];
+                tempImg.onload = function () {
+                    context.clearRect(0, 0, canvas.width, canvas.height);
+                    context.drawImage(this, 0, 0);
+                }
+            }
+        }
+    }
+}
+
+
+function main(){
+
 var canvas = document.getElementById("canvas");
 canvas.width = window.innerWidth;
 canvas.height = window.innerHeight;
@@ -56,11 +108,19 @@ var savePNG = document.getElementById("savePNG"); //Retrieve Save Image element 
 var saveJPG = document.getElementById("saveJPG"); //Retrieve Save Image element JPG
 var saveBMP = document.getElementById("saveBMP"); //Retrieve Save Image element BMP
 
+var undoTool = document.getElementById("undo-Tool");
+var redoTool = document.getElementById("redo-Tool");
+
+
 //Default Color Conditions, makes color update and eraser work
 var color = document.getElementById("myColor");
 var myColor = color.value;
 context.strokeStyle = myColor; //have stroke equal the color
 color.addEventListener("change", colorChange);
+
+var history = new History(canvas, context, 50);
+history.initialize();
+
 
 //Update Color upon new color selection
 function colorChange(){
@@ -138,6 +198,7 @@ function brushUp(){
     circleSelectBool = false;
     mouse = false;
     canvas.style.cursor = "default";
+    history.save();
 }
 
 let n = 50;
@@ -152,13 +213,14 @@ function createCircle(e) {
     context.arc(positionX, positionY, mySizeCircle, 0, 2 * Math.PI);
 
     context.stroke();
-    
+
     if (fillToggleValue == true) {
         console.log("Calling fill");
         context.fill();
     }
 
     context.closePath();
+    history.save();
 }
 
 var n1=0;
@@ -169,26 +231,26 @@ function createSquare(e) {
     circleSelectTool.style.border = "none";
     triangleSelectTool.style.border = "none";
     brush.style.border = "none";
-    
+
     console.log("Calling createSquare()");
     var coordinates = getCoordinates(canvas,e);
     positionX = coordinates.x;
     positionY = coordinates.y;
     canvas.style.cursor = "pointer";
 
-    
+
     context.beginPath();
     context.rect(positionX, positionY,  mySizeCircle, mySizeCircle);
     //context.rect(400, 400, 150, 100);
     context.stroke();
-    
+
     if (fillToggleValue == true) {
         console.log("Calling fill");
         context.fill();
     }
     //(fillToggleValue == "on") ? context.fill() : null;
     context.closePath();
-    
+    history.save();
 }
 
 function createTriangle(e) {
@@ -197,21 +259,21 @@ function createTriangle(e) {
     squareSelectTool.style.border = "none";
     triangleSelectTool.style.border = "none";
     brush.style.border = "none";
-    
+
     var coordinates = getCoordinates(canvas,e);
     positionX = coordinates.x;
     positionY = coordinates.y;
     canvas.style.cursor = "pointer";
 
     var circleSize = mySizeCircle;
-    
+
     //50;
-    
+
     //var height = circleSize * (Math.sqrt(3*positionX)/(2*positionY));
     var height = circleSize * (Math.sqrt(3)/2);
-    
+
     context.beginPath();
-        
+
     //create triangle
     /*context.moveTo(positionX, positionY);
     context.lineTo(positionX, 3*positionY);
@@ -236,25 +298,26 @@ function createTriangle(e) {
 
     //(fillToggleValue == "on") ? context.fill() : null;
     //context.fill();
-    
+
     context.translate(-positionX, -positionY); //reset position so that the triangle can be drawn at where the cursor is
+    history.save();
 }
 
 function brushClick(){
     circleSelectBool = false;
     triangleSelectBool = false;
     squareSelectBool = false;
-                   
+
     canvas.removeEventListener("click",createCircle);
     //get color of brush
     var brushColor = document.getElementById("myColor");
     context.strokeStyle = brushColor.value;
-    
+
     //Border style of buttons put nones before border
     eraser.style.border = "none";
     circleSelectTool.style.border = "none";
     brush.style.border = "2px solid red";
-     
+
     canvas.addEventListener("mousedown",brushDown,false);
     canvas.addEventListener("mousemove",brushMove,false);
     canvas.addEventListener("mouseup",brushUp,false);
@@ -277,7 +340,7 @@ function eraserClick(){
     triangleSelectTool.style.border = "none";
 
     eraser.style.border = "2px solid red";
-    
+
     canvas.addEventListener("mousedown",brushDown,false);
     canvas.addEventListener("mousemove",brushMove,false);
     canvas.addEventListener("mouseup",brushUp,false);
@@ -294,7 +357,7 @@ function circleSelect() {
     canvas.removeEventListener("mousedown",brushDown);
     canvas.removeEventListener("mousemove",brushMove);
     canvas.removeEventListener("mouseup",brushUp);
-    
+
     context.strokeStyle = color.value;
 
     circleSelectBool = true;
@@ -323,7 +386,7 @@ function squareSelect() {
     canvas.removeEventListener("mousedown",brushDown);
     canvas.removeEventListener("mousemove",brushMove);
     canvas.removeEventListener("mouseup",brushUp);
-    
+
     context.strokeStyle = color.value;
 
     squareSelectBool = true;
@@ -346,7 +409,7 @@ function squareSelect() {
 
 
 function triangleSelect() {
-    
+
     canvas.removeEventListener("click",createSquare);
     canvas.removeEventListener("click", createCircle);
 
@@ -395,7 +458,7 @@ function savePNGEvent() {
     savePNG.href = datapng;
     savePNG.download = "myImage.png";
 }
-                   
+
 function saveJPGEvent() {
     circleSelectTool = false;
     triangleSelectTool = false;
@@ -405,7 +468,7 @@ function saveJPGEvent() {
     saveJPG.href = datajpg;
     saveJPG.download = "myImage.jpeg";
 }
-                   
+
 function saveBMPEvent() {
     circleSelectTool = false;
     triangleSelectTool = false;
@@ -421,15 +484,18 @@ function saveBMPEvent() {
 brush.addEventListener("click",brushClick); //Starts brush event on click
 erase.addEventListener("click",eraserClick); //Start eraser event on click
 reset.addEventListener("click",resetClick); //Start Reset Click Event
-                   
+
 savePNG.addEventListener("click",savePNGEvent); //Start PNG Save Click Event
 saveJPG.addEventListener("click",saveJPGEvent); //Start JPG Save Click Event
 saveBMP.addEventListener("click",saveBMPEvent); //Start BMP Save Click Event
-                   
+
 circleSelectTool.addEventListener("click", circleSelect); //Trigger event when clicking the circle select tool
 triangleSelectTool.addEventListener("click", triangleSelect); //Trigger event when clicking the circle select tool
 squareSelectTool.addEventListener("click", squareSelect); //Trigger event when clicking the circle select tool
 
+undoTool.addEventListener("click",history.undo);
+redoTool.addEventListener("click",history.redo);
 
 
- 
+}
+main();
